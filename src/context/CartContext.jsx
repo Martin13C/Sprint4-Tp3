@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { createContext, useContext } from 'react'
+import useListProductj from '../hooks/useListProduct';
 
-function CartContext() {
 
-  // anular boton de agregar si una pelicula esta ya en la lista, evitando duplicados
-  // const isInWatchlist = watchlist.some((product) => product.id === id)
+// definir contexto
+const CartContext = createContext ();
+
+// crear provider 
+export const CartProvider = ({children }) => {
+  const cart = useListProductj();
 
   return (
-    <div>
+    <CartContext.Provider value={cart}>
+      { children }
+    </CartContext.Provider>
+  );
+};
+// usar el contexto 
 
-    </div>
-  )
+// consumir contexto 
+export function useCart() {
+  return useContext(CartContext)
 }
-
-export default CartContext

@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { createContext, useContext } from 'react';
+import useThemej from '../hooks/useTheme';
 
-function ThemeContext() {
+// deifinir contexto
+const ThemeContext = createContext();
+
+// crear provider 
+export const ThemeProvider = ({ children }) => {
+const tema = useThemej()
   return (
-    <div>ThemeContext</div>
-  )
-}
+    <ThemeContext.Provider value={tema}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 
-export default ThemeContext
+// usar el context 
+
+// cosnumir context
+export function useTheme() {
+  return useContext(ThemeContext);
+}

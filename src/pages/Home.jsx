@@ -1,18 +1,21 @@
-import ProductList from '../components/ProductList'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import Modo from '../components/Modo'
-import { useState } from 'react'
+import Header from '../components/head/Header'
+import Footer from '../components/footer/Footer'
 import ModalCarrito from '../components/ModalCarrito'
-import { useListProduct } from '../hooks/useListProduct'
+import Modo from '../components/head/Modo'
+import ProductList from '../components/body/ProductList'
+import { useModals } from '../context/ModalsContext'
+// import { useListProduct } from '../hooks/useListProduct'
 
 function Home() {
 
+
+const { isModalOpen } = useModals()
+
   // useState para enviar stado de modal abierto o no 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  // const [isModalOpen, setIsModalOpen] = useState(false)
 
 
-  const { listProducts, removeFromProductList, clearProductList, addToProductList, decreaseProductQuantity } = useListProduct()
+  // const { listProducts, removeFromProductList, clearProductList, addToProductList, decreaseProductQuantity } = useListProduct()
 
   return (
     <div>
@@ -21,25 +24,30 @@ function Home() {
 
       <Modo />
 
+      
 
-      <Header
-        onOpenModal={() => setIsModalOpen(true)}
-      />
-      {
-        isModalOpen && (
-          <ModalCarrito
-            onClose={() => setIsModalOpen(false)}
-            listProducts={listProducts}
-            addToProductList={addToProductList}
-            decreaseProductQuantity={decreaseProductQuantity}
-            removeFromProductList={removeFromProductList}
-            clearProductList={clearProductList}
-          />
-        )}
+        <Header
+          // onOpenModal={() => setIsModalOpen(true)}
+        // listProducts={listProducts}
+        />
+        {
+          isModalOpen && (
+            <ModalCarrito
+              // onClose={() => setIsModalOpen(false)}
+            // listProducts={listProducts}
+            // addToProductList={addToProductList}
+            // decreaseProductQuantity={decreaseProductQuantity}
+            // removeFromProductList={removeFromProductList}
+            // clearProductList={clearProductList}
+            />
+          )}
+
+     
+
 
       <ProductList
-        listProducts={listProducts}
-        addToProductList={addToProductList}
+      // listProducts={listProducts}
+      // addToProductList={addToProductList}
       />
 
       <Footer />

@@ -1,40 +1,32 @@
-import React, { useState } from 'react'
+import { useTheme } from "../../context/ThemeContext"
 
-function Modo() {
-
-    const [darkMode, setDarkMode] = useState(false)
-
-    const toggleDarkMode = () => {
-        setDarkMode((prev) => !prev);
-    }
-
-    return (
-        <div className='bg-gray-100/80 w-full h-[5vh] flex items-center justify-center backdrop-blur gap-3'>
-
-            <h2 className='text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl '>
-                Cambio Modo
-            </h2>
-            <button
-                onClick={toggleDarkMode}
+function ThemeButton() {
+  const { darkMode } = useTheme();
+  
+  return (
+   
+   
+        <button
+               
                 className={`
-        relative 
-        w-12 h-6 
-        sm:w-14 sm:h-7 
-        flex items-center px-1 
-        rounded-full 
-        bg-gradient-to-r ${darkMode ? "from-blue-900 to-blue-800" : "from-yellow-300 to-yellow-200"}
-        shadow-lg hover:cursor-pointer transition-all duration-300 overflow-hidden
-      `}
-                aria-label="Cambiar modo oscuro/claro"
+                    w-12 h-6 
+                    sm:w-14 sm:h-7 
+                    flex items-center px-1 
+                    rounded-full 
+                    bg-gradient-to-r ${darkMode ? "from-blue-900 to-blue-800" : "from-yellow-300 to-yellow-200"}
+                    shadow-lg hover:cursor-pointer transition-all duration-300 overflow-hidden
+                    aria-label="Cambiar modo oscuro/claro"
+                    relative 
+                    `}
             >
                 <div
                     className={`
-          absolute left-0.5 top-1/2 transform -translate-y-1/2
-          w-5 h-5 
-          sm:w-6 sm:h-6
-          rounded-full flex items-center justify-center transition-all duration-500 
-          ${darkMode ? "translate-x-6 sm:translate-x-7 bg-blue-950" : "translate-x-0 bg-white"}
-        `}
+                        w-5 h-5 
+                        sm:w-6 sm:h-6
+                        rounded-full flex items-center justify-center transition-all duration-500 
+                        absolute left-0.5 top-1/2 transform -translate-y-1/2
+                        ${darkMode ? "translate-x-6 sm:translate-x-7 bg-blue-950" : "translate-x-0 bg-white"}
+                        `}
                 >
                     {darkMode ? (
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" className="bi bi-moon-stars text-blue-400" viewBox="0 0 16 16">
@@ -58,8 +50,9 @@ function Modo() {
                     </svg>
                 </div>
             </button>
-        </div>
-    )
+    
+    
+  )
 }
 
-export default Modo
+export default ThemeButton

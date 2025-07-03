@@ -1,30 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
-export const useListProduct = () => {
-const [listProducts, setListProducts] = useState([])
+export const useListProductj = () => {
+  const [listProducts, setListProducts] = useState([]);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem("listProducts")) || [];
-    setListProducts(stored)
+    setListProducts(stored);
   }, []);
-  
-//   const addToProductList = (producto)  => {
-//     if (!listProducts.find(item => item.id === producto.id)) {
-//       const updated = [...listProducts, producto];
-//       setListProducts(updated);
-//       localStorage.setItem("listProducts", JSON.stringify(updated));
-//     }
-//   };
 
+  //   const addToProductList = (producto)  => {
+  //     if (!listProducts.find(item => item.id === producto.id)) {
+  //       const updated = [...listProducts, producto];
+  //       setListProducts(updated);
+  //       localStorage.setItem("listProducts", JSON.stringify(updated));
+  //     }
+  //   };
 
   // Agregar producto o incrementar cantidad si ya existe
   const addToProductList = (producto) => {
-    setListProducts(prevList => {
-      const existe = prevList.find(item => item.id === producto.id);
+    setListProducts((prevList) => {
+      const existe = prevList.find((item) => item.id === producto.id);
       let updated;
       if (existe) {
-        updated = prevList.map(item =>
-          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
+        updated = prevList.map((item) =>
+          item.id === producto.id
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item
         );
       } else {
         updated = [...prevList, { ...producto, cantidad: 1 }];
@@ -34,9 +35,9 @@ const [listProducts, setListProducts] = useState([])
     });
   };
 
- // Disminuir cantidad o eliminar producto si cantidad llega a 1
+  // Disminuir cantidad o eliminar producto si cantidad llega a 1
   const decreaseProductQuantity = (id) => {
-    setListProducts(prevList => {
+    setListProducts((prevList) => {
       const updated = prevList.reduce((acc, item) => {
         if (item.id === id) {
           if (item.cantidad > 1) {
@@ -53,18 +54,16 @@ const [listProducts, setListProducts] = useState([])
     });
   };
 
-
-
-//  const removeFromProductList = (id) => {
-//     const updated = listProducts.filter(producto => producto.id !== id);
-//     setListProducts(updated);
-//     localStorage.setItem("listProducts", JSON.stringify(updated));
-//   };
+  //  const removeFromProductList = (id) => {
+  //     const updated = listProducts.filter(producto => producto.id !== id);
+  //     setListProducts(updated);
+  //     localStorage.setItem("listProducts", JSON.stringify(updated));
+  //   };
 
   // Eliminar producto completo
   const removeFromProductList = (id) => {
-    setListProducts(prevList => {
-      const updated = prevList.filter(item => item.id !== id);
+    setListProducts((prevList) => {
+      const updated = prevList.filter((item) => item.id !== id);
       localStorage.setItem("listProducts", JSON.stringify(updated));
       return updated;
     });
@@ -75,7 +74,28 @@ const [listProducts, setListProducts] = useState([])
     localStorage.removeItem("listProducts");
   };
 
-  return {listProducts, addToProductList, decreaseProductQuantity, removeFromProductList, clearProductList}
-}
+  // variable para controlar la cantidad de productos que hay dentro del carrito a pesar de estar repetidos
+  const totalProductos = listProducts.reduce(
+    (acc, producto) => acc + (producto.cantidad || 0),
+    0
+  );
 
-export default useListProduct
+  // Calculamos el total sumando precio * cantidad
+  const total =
+    listProducts.reduce(
+      (acc, producto) => acc + producto.precio * producto.cantidad,
+      0
+    ) || 0;
+
+  return {
+    listProducts,
+    totalProductos,
+    total,
+    addToProductList,
+    decreaseProductQuantity,
+    removeFromProductList,
+    clearProductList,
+  };
+};
+
+export default useListProductj;

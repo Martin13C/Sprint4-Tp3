@@ -1,13 +1,15 @@
 import React from 'react'
+import { useModals } from '../context/ModalsContext'
 
-function MsjConfirmacion({ msjConfirmar, msjCancelar }) {
+function MsjConfirmacion() {
 
+    const  { msjConfirmar, msjCancelar } = useModals()
     return (
-        <section className="fixed inset-0 flex items-center justify-center bg-white/50 backdrop-blur z-50 opacity-100">
+        <section onClick={msjCancelar} className="fixed inset-0 flex items-center justify-center bg-white/50 backdrop-blur dark:bg-gray-800/50 z-50 opacity-100">
 
-            <div className='bg-gray-50 rounded-xl shadow-xl w-11/12 max-w-md overflow-hidden'>
+            <div onClick={(e) => e.stopPropagation()} className='bg-gray-50 dark:bg-gray-950 rounded-xl shadow-xl w-11/12 max-w-md overflow-hidden'>
 
-                <header className=' bg-red-600  opacity-90 animate-pulse text-black flex justify-around items-center p-4 '>
+                <header className=' bg-red-500  dark:bg-red-700  opacity-90 animate-pulse dark:text-black  text-white flex justify-around items-center p-4 '>
                     <h1 className='gap-3 text-xl font-bold flex items-center'>
                         Atencion
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-exclamation-diamond" viewBox="0 0 16 16">
@@ -19,10 +21,10 @@ function MsjConfirmacion({ msjConfirmar, msjCancelar }) {
                 </header>
 
                 <div className='p-6'>
-                    <h2 className='text-lg'>
+                    <h2 className=' text-black dark:text-gray-200 text-lg'>
                         Se borrara toda la lista de productos del carrito, dejandolo Vacio
                     </h2>
-                    <h2 className='flex justify-center text-lg'><span className=''>¿Estas seguro?</span></h2>
+                    <h2 className='text-black dark:text-gray-200 flex justify-center text-lg'><span className=''>¿Estas seguro?</span></h2>
 
                     <div className='flex justify-center items-center gap-4 mt-4'>
                         <button
