@@ -35,8 +35,8 @@ export const useThemej = () => {
 // }, [darkMode]);
 
 // cambio de imagenes segun tema 
-  const logoSrc = darkMode ? '../src/assets/logo-Oscuro.png' : '../src/assets/logo-Claro.png' ;
-  const carritoSrc = darkMode ? '../src/assets/carrito-Oscuro.png' : '../src/assets/carrito-Claro.png' ;
+  const logoSrc = darkMode ? '/logo-Oscuro.png' : '/logo-Claro.png' ;
+  const carritoSrc = darkMode ? '/carrito-Oscuro.png' : '/carrito-Claro.png' ;
   
     return { darkMode, toggleDarkMode, logoSrc, carritoSrc}
 }
